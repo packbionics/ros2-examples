@@ -9,5 +9,5 @@ One easy way to run ROS2 Nodes is to run a docker-compose file. In the `docker/`
 
 ### Example
 
-Startup py_pubsub talker and listener:  
+Startup two ROS2 containers, clone the ros2-examples repository, and launch py_pubsub talker and listener:  
 ```docker-compose -f docker-compose.py_pubsub.yml up```
