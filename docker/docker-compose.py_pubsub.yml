@@ -1,0 +1,27 @@
+version: '3.0'
+
+services:
+  talker:
+    image: dustynv/ros:foxy-ros-base-l4t-r32.6.1
+    command: >
+      bash -c "
+      cd /root && mkdir -p ros2_ws/src && cd ros2_ws/src
+      && git clone https://github.com/packbionics/ros2-examples.git
+      && cd .. && rosdep install -i --from-path src --rosdistro foxy -y
+      && colcon build --packages-select py_pubsub
+      && . install/setup.bash
+      && ros2 run py_pubsub talker
+      "
+  listener:
+    image: dustynv/ros:foxy-ros-base-l4t-r32.6.1
+    command: >
+      bash -c "
+      cd /root && mkdir -p ros2_ws/src && cd ros2_ws/src
+      && git clone https://github.com/packbionics/ros2-examples.git
+      && cd .. && rosdep install -i --from-path src --rosdistro foxy -y
+      && colcon build --packages-select py_pubsub
+      && . install/setup.bash
+      && ros2 run py_pubsub listener
+      "
+    depends_on:
+      - talker
